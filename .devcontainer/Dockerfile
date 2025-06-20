@@ -9,6 +9,13 @@ RUN echo "CXX17=g++" >> $HOME/.R/Makevars
 RUN echo "options(mc.cores =  4)" >> $HOME/.Rprofile
 RUN echo "Sys.setenv(MAKEFLAGS = '-j4')" >> $HOME/.Rprofile
 
+# Add a user named codespace with home directory and bash shell
+RUN useradd -m -s /bin/bash codespace
+
+RUN apt-get update && apt-get install -y sudo \
+    && echo "codespace ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/nopasswd \
+    && chmod 0440 /etc/sudoers.d/nopasswd
+
 # Install system dependencies
 RUN apt-get update -qq \ 
     && apt-get -y install apt-utils libcurl4-openssl-dev libv8-dev libtbb-dev build-essential python3 python3-pip pipx python3-dev \
@@ -38,3 +45,4 @@ RUN pipx install radian
 RUN pipx ensurepath
 
 RUN echo "alias r='radian'" >> $HOME/.bashrc
+USER codespace
