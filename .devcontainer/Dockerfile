@@ -17,9 +17,9 @@ RUN apt-get update && apt-get install -y sudo \
     && chmod 0440 /etc/sudoers.d/nopasswd
 
 # Install system dependencies
-RUN apt-get update -qq \ 
-    && apt-get -y install apt-utils libcurl4-openssl-dev libv8-dev libtbb-dev build-essential python3 python3-pip pipx python3-dev \
-    libxml2-dev libfontconfig1-dev libcairo2-dev libtiff-dev git htop libcom-err2
+#RUN apt-get update -qq \ 
+#    && apt-get -y install apt-utils libcurl4-openssl-dev libv8-dev libtbb-dev build-essential python3 python3-pip pipx python3-dev \
+#    libxml2-dev libfontconfig1-dev libcairo2-dev libtiff-dev git htop libcom-err2
 
 # Install RStan
 RUN R -e "install.packages('rstan', repos = c('https://stan-dev.r-universe.dev', getOption('repos')))"
