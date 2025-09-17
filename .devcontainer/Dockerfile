@@ -1,4 +1,4 @@
-FROM r-base:latest
+FROM r-base:4.5.0
 
 # Set compiler settings
 RUN mkdir $HOME/.R/
@@ -24,6 +24,8 @@ RUN apt-get -y install apt-utils libcurl4-openssl-dev libv8-dev libtbb-dev \
 
 # Install RStan
 RUN R -e "install.packages('rstan', repos = c('https://stan-dev.r-universe.dev', getOption('repos')))"
+# Install httpgd
+RUN R -e "install.packages('httpgd', repos = c('https://community.r-multiverse.org', 'https://cloud.r-project.org'))"
 
 # Install other R packages
 RUN install2.r --error \
@@ -33,7 +35,6 @@ RUN install2.r --error \
     dagitty \
     shape \
     languageserver \
-    httpgd \
     brms
 
 # Install R packages cmdstanr and rethinking from GitHub
